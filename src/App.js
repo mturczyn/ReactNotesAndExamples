@@ -25,23 +25,51 @@ function App() {
                 <Link to="/maps">Go to maps</Link>
                 <Link to="/virtualized-list">Go to virtualized list</Link>
                 <p>Show custom modal centered within the viewport</p>
-                <button onClick={() => setShowModal(!showModal)}>
-                    Show modal
-                </button>
+                <button onClick={() => setShowModal(true)}>Show modal</button>
                 <div
                     style={{
                         display: showModal ? 'block' : 'none',
                         position: 'fixed',
                         inset: '0px',
-                        width: '12rem',
-                        height: '5rem',
+                        width: '50rem',
+                        height: '35rem',
+                        color: 'black',
                         maxWidth: '100vw',
-                        maxHeight: '100dvh',
+                        maxHeight: '100vh',
                         margin: 'auto',
                         background: 'lightblue',
                     }}
                 >
-                    THIS IS CUSTOM MODAL
+                    <h1 style={{ marginBottom: 0 }}>Modal</h1>
+                    <button onClick={() => setShowModal(false)}>
+                        Hide modal
+                    </button>
+                    <p>
+                        Achieved by applying following CSS-in-JS to modal
+                        container element.
+                    </p>
+                    <pre>
+                        <code
+                            style={{
+                                margin: '1ch',
+                                display: 'block',
+                                background: '#DDD',
+                                padding: '1ch',
+                            }}
+                        >
+                            {`style={{
+    display: showModal ? 'block' : 'none', 
+    position: 'fixed', 
+    inset: '0px', 
+    width: '12rem', 
+    height: '5rem', 
+    maxWidth: '100vw',
+    maxHeight: '100dvh', 
+    margin: 'auto', 
+    background: 'lightblue', 
+}}`}
+                        </code>
+                    </pre>
                 </div>
                 <WeatherApp />
             </header>
