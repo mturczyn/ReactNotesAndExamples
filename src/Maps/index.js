@@ -27,7 +27,6 @@ export default function Maps() {
             <h1>Maps</h1>
             <div
                 id="map-container"
-                className="map-container"
                 style={{
                     width: '100%',
                     height: '500px',
