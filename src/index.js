@@ -7,6 +7,7 @@ import { I18nextProvider } from 'react-i18next'
 import i18next from 'i18next'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Maps from './Maps'
+import VirtualizedList from './VirtualizedList'
 
 i18next.init({
     interpolation: { escapeValue: false }, // React already does escaping
@@ -20,6 +21,10 @@ root.render(
                 <Routes>
                     <Route path="/" element={<App />} />
                     <Route path="/maps" element={<Maps />} />
+                    <Route
+                        path="/virtualized-list"
+                        element={<VirtualizedList />}
+                    />
                 </Routes>
             </I18nextProvider>
         </BrowserRouter>
