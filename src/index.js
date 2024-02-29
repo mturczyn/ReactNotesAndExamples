@@ -8,6 +8,7 @@ import i18next from 'i18next'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Maps from './Maps'
 import VirtualizedList from './VirtualizedList'
+import InfiniteScrollList from './InfiniteScroll'
 
 i18next.init({
     interpolation: { escapeValue: false }, // React already does escaping
@@ -21,6 +22,10 @@ root.render(
                 <Routes>
                     <Route path="/" element={<App />} />
                     <Route path="/maps" element={<Maps />} />
+                    <Route
+                        path="/infinite-scroll"
+                        element={<InfiniteScrollList />}
+                    />
                     <Route
                         path="/virtualized-list"
                         element={<VirtualizedList />}

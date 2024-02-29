@@ -23,6 +23,7 @@ function App() {
                     Learn React
                 </a>
                 <Link to="/maps">Go to maps</Link>
+                <Link to="/infinite-scroll">Go to infinite scroll</Link>
                 <Link to="/virtualized-list">Go to virtualized list</Link>
                 <p>Show custom modal centered within the viewport</p>
                 <button onClick={() => setShowModal(true)}>Show modal</button>
