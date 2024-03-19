@@ -1,4 +1,4 @@
-// InfiniteScroll.js
+// InfiniteScroll.jsx
 import { useState, useEffect } from 'react'
 import { useInView } from 'react-intersection-observer'
 
