@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react'
 import { useInView } from 'react-intersection-observer'
 
-const InfiniteScroll = ({ loadMore }) => {
+const InfiniteScroll = ({ loadMore }: { loadMore: () => void }) => {
     const [ref, inView] = useInView({
         triggerOnce: true,
     })
@@ -22,7 +22,7 @@ const initialItems = [
     { id: 3, content: 'Item 3' },
 ]
 
-const fetchMoreData = (page) => {
+const fetchMoreData = (page: number) => {
     // Simulate fetching more data from an API
     return Array.from({ length: 5 }, (_, index) => ({
         id: initialItems.length + index + 1,

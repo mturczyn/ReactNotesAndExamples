@@ -19,7 +19,7 @@ export default function Maps() {
                 zoom: 0,
             }),
         })
-        return () => map.setTarget(null)
+        return () => map.setTarget(undefined)
     }, [])
 
     return (

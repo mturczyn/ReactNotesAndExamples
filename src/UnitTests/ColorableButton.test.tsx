@@ -13,7 +13,7 @@ test('Changes background when clicked', async () => {
     const btn = screen.getByRole('button')
     userEvent.click(btn)
     // eslint-disable-next-line testing-library/no-debugging-utils, testing-library/no-node-access
-    screen.debug(btn.closest('div'))
+    screen.debug(btn.closest('div') ?? undefined)
 
     // waitFor is used when we trigger asynchronous operations, such as setting
     // a state. Below is great example - if we assert synchronously, we
@@ -21,10 +21,10 @@ test('Changes background when clicked', async () => {
     // After, we await assertion for GREEN color, which also succeeds.
     const greenAssert = waitFor(() =>
         // eslint-disable-next-line testing-library/no-node-access
-        expect(btn.closest('div').style.color).toBe(GREEN)
+        expect(btn.closest('div')?.style.color).toBe(GREEN)
     )
     // eslint-disable-next-line testing-library/no-node-access
-    expect(btn.closest('div').style.color).toBe(RED)
+    expect(btn.closest('div')?.style.color).toBe(RED)
 
     await greenAssert
 })

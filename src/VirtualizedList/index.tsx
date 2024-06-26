@@ -1,8 +1,8 @@
-import { FixedSizeList as List } from 'react-window'
+import { FixedSizeList as List, ListChildComponentProps } from 'react-window'
 
 const items = [...Array(1000).keys()]
 
-function ItemCard({ itemNo }) {
+function ItemCard({ itemNo }: { itemNo: number }) {
     console.log('>>>', 'rendering item no.', itemNo)
     return (
         <li
@@ -36,7 +36,9 @@ export default function VirtualizedList() {
                 itemSize={35}
                 width={500}
             >
-                {({ i, style }) => <ItemCard itemNo={i} />}
+                {({ index }: ListChildComponentProps<any>) => (
+                    <ItemCard itemNo={index} />
+                )}
             </List>
         </>
     )

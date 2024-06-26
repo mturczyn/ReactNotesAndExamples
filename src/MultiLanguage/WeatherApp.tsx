@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useTranslation } from 'react-i18next'
 import i18n from 'i18next'
@@ -32,7 +32,10 @@ i18n.use(initReactI18next).init({
 const WeatherApp = () => {
     const { t } = useTranslation()
     const [city, setCity] = useState('')
-    const [weatherData, setWeatherData] = useState({})
+    const [weatherData, setWeatherData] = useState<{
+        name?: string
+        main?: any
+    }>({})
 
     useEffect(() => {
         ;(async () => {
@@ -47,7 +50,7 @@ const WeatherApp = () => {
         })()
     }, [city])
 
-    const handleCityChange = async (e) => {
+    const handleCityChange = async (e: any) => {
         const newCity = e.target.value
         setCity(newCity)
     }
