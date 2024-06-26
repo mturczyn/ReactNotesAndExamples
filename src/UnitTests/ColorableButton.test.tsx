@@ -1,6 +1,7 @@
 import { render, screen, waitFor } from '@testing-library/react'
 import { ColorableButton, GREEN, RED } from './ColorableButton'
 import userEvent from '@testing-library/user-event'
+import '@testing-library/jest-dom'
 
 test('To have a button', () => {
     render(<ColorableButton />)

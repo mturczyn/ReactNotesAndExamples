@@ -21,6 +21,10 @@
         "web-vitals": "^2.1.4"
     },
     "scripts": {
+        "test": "jest",
+        "test:watch": "jest --watch",
+        "test:coverage": "jest --coverage .",
+        "test:debug": "jest --inspect-brk --runInBand --no-cache",
         "start": "vite",
         "build": "tsc && vite build",
         "preview": "vite preview"
@@ -43,9 +47,24 @@
             "last 1 safari version"
         ]
     },
+    "jest": {
+        "preset": "ts-jest/presets/js-with-ts",
+        "testEnvironment": "jest-environment-jsdom",
+        "moduleNameMapper": {
+            "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+            "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
+        },
+        "modulePaths": [
+            "<rootDir>/src"
+        ]
+    },
     "devDependencies": {
+        "@types/jest": "^29.5.12",
         "@types/react-window": "^1.8.8",
         "@vitejs/plugin-react": "^4.3.1",
+        "jest": "^29.7.0",
+        "jest-environment-jsdom": "^29.7.0",
+        "ts-jest": "^29.1.5",
         "typescript": "^5.5.2",
         "vite": "^5.3.1"
     }
