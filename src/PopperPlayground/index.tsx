@@ -1,4 +1,4 @@
-import { Instance, createPopper, popper } from '@popperjs/core'
+import { Instance, createPopper } from '@popperjs/core'
 import { useEffect, useRef } from 'react'
 import './PopperPlayground.css'
 
@@ -26,8 +26,9 @@ export function PopperPlayground() {
             <button ref={buttonRef} id="button" aria-describedby="tooltip">
                 My button
             </button>
-            <div ref={divRef} id="tooltip" role="tooltip">
+            <div ref={divRef} id="tooltip" role="tooltip" data-popper-arrow>
                 My tooltip
+                <div id="arrow" data-popper-arrow></div>
             </div>
         </>
     )
