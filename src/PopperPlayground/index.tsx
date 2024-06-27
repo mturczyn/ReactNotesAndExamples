@@ -1,50 +1,29 @@
-import { Instance, OptionsGeneric, createPopper } from '@popperjs/core'
-import { useEffect, useRef } from 'react'
+import {
+    Instance,
+    Placement,
+    PositioningStrategy,
+    createPopper,
+} from '@popperjs/core'
+import { useEffect, useRef, useState } from 'react'
 import './PopperPlayground.css'
-
-const offsetModifier = {
-    name: 'offset',
-    options: {
-        offset: [0, 8],
-    },
-}
+import {
+    offsetModifier,
+    topLoggerModifier,
+    flipModifier,
+} from './popperModifiers'
+import { PopperPlaygroundDescription } from './PopperPlaygroundDescription'
+import { placements, strategies } from './popperOptions'
 
 const showEvents = ['mouseenter', 'focus']
 const hideEvents = ['mouseleave', 'blur']
-
-const PopperPlaygroundDescription = ({
-    handleFocusTooltipOwner,
-}: {
-    handleFocusTooltipOwner: () => void
-}) => (
-    <>
-        <h1>Showcase popper from @popperjs/core library</h1>
-        <p>
-            The implementation of this page was taken (followed) from{' '}
-            <a href="https://popper.js.org/docs/v2/tutorial/">
-                this popper brief tutorial.
-            </a>{' '}
-            Below button has tooltip, that shows, when the button is hovered
-            over or focued.{' '}
-        </p>
-        <p
-            style={{
-                display: 'block',
-                marginBottom: '1rem',
-                textDecoration: 'underline',
-            }}
-        >
-            <button onClick={handleFocusTooltipOwner}>Focus the button</button>{' '}
-            or hover over the below button.
-        </p>
-        <hr />
-    </>
-)
 
 export function PopperPlayground() {
     const buttonRef = useRef<HTMLButtonElement>(null)
     const divRef = useRef<HTMLDivElement>(null)
     const popperInstance = useRef<Instance | null>(null)
+    const [showAlwaysTooltip, setShowAlwaysTooltip] = useState(false)
+    const [strategy, setStrategy] = useState<PositioningStrategy>('absolute')
+    const [placement, setPlacement] = useState<Placement>('right')
 
     function focusButton() {
         buttonRef.current?.focus()
@@ -109,21 +88,64 @@ export function PopperPlayground() {
             buttonRef.current,
             divRef.current,
             {
-                placement: 'right',
-                modifiers: [offsetModifier],
+                placement: placement,
+                strategy: strategy,
+                modifiers: [offsetModifier, topLoggerModifier, flipModifier],
             }
         )
-    }, [])
+    }, [placement, strategy])
 
     return (
         <>
             <PopperPlaygroundDescription
                 handleFocusTooltipOwner={focusButton}
             />
+            <h3>Options</h3>
+            <label>
+                Show tooltip always
+                <input
+                    onChange={(e) => setShowAlwaysTooltip(e.target.checked)}
+                    type="checkbox"
+                />
+            </label>
+            <label>
+                Set placement
+                <select
+                    onChange={(e) => setPlacement(e.target.value as Placement)}
+                >
+                    {placements.map((x) => (
+                        <option key={x} value={x}>
+                            {x}
+                        </option>
+                    ))}
+                </select>
+            </label>
+            <label>
+                Set positioning strategy
+                <select
+                    onChange={(e) =>
+                        setStrategy(e.target.value as PositioningStrategy)
+                    }
+                >
+                    {strategies.map((x) => (
+                        <option key={x} value={x}>
+                            {x}
+                        </option>
+                    ))}
+                </select>
+            </label>
+            <hr />
+            <h3>Example</h3>
             <button ref={buttonRef} id="button" aria-describedby="tooltip">
                 My button
             </button>
-            <div ref={divRef} id="tooltip" role="tooltip" data-popper-arrow>
+            <div
+                className={showAlwaysTooltip ? undefined : 'display-none'}
+                ref={divRef}
+                id="tooltip"
+                role="tooltip"
+                data-popper-arrow
+            >
                 My tooltip
                 <div id="arrow" data-popper-arrow></div>
             </div>
