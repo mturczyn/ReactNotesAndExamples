@@ -121,14 +121,17 @@ export function PopperPlayground() {
                     type="checkbox"
                 />
             </label>
+            <br />
             <label>
                 Set placement
                 <SelectPlacement setPlacement={setPlacement} />
             </label>
+            <br />
             <label>
                 Set positioning strategy
                 <SelectStrategy setStrategy={setStrategy} />
             </label>
+            <br />
             <label>
                 Set positioning of tooltip ref element
                 <SelectTooltipRefElementPosition
