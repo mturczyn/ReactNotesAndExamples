@@ -12,7 +12,12 @@ import {
     flipModifier,
 } from './popperModifiers'
 import { PopperPlaygroundDescription } from './PopperPlaygroundDescription'
-import { placements, strategies } from './popperOptions'
+import { SelectStrategy } from './SelectStrategy'
+import { SelectPlacement } from './SelectPlacement'
+import {
+    Position,
+    SelectTooltipRefElementPosition,
+} from './SelectTooltipRefElementPosition'
 
 const showEvents = ['mouseenter', 'focus']
 const hideEvents = ['mouseleave', 'blur']
@@ -23,6 +28,8 @@ export function PopperPlayground() {
     const popperInstance = useRef<Instance | null>(null)
     const [showAlwaysTooltip, setShowAlwaysTooltip] = useState(false)
     const [strategy, setStrategy] = useState<PositioningStrategy>('absolute')
+    const [tooltipRefItemPositioning, setTooltipRefItemPositioning] =
+        useState<Position>('initial')
     const [placement, setPlacement] = useState<Placement>('right')
 
     function focusButton() {
@@ -101,6 +108,12 @@ export function PopperPlayground() {
                 handleFocusTooltipOwner={focusButton}
             />
             <h3>Options</h3>
+            <p>
+                As it is stated in the docs, if tooltip ref element has position{' '}
+                <code>fixed</code>, than the strategy of the tooltip has to have
+                also position <code>fixed</code>. Otherwise, there maybe some
+                unwanted effects when scrolling.
+            </p>
             <label>
                 Show tooltip always
                 <input
@@ -110,29 +123,17 @@ export function PopperPlayground() {
             </label>
             <label>
                 Set placement
-                <select
-                    onChange={(e) => setPlacement(e.target.value as Placement)}
-                >
-                    {placements.map((x) => (
-                        <option key={x} value={x}>
-                            {x}
-                        </option>
-                    ))}
-                </select>
+                <SelectPlacement setPlacement={setPlacement} />
             </label>
             <label>
                 Set positioning strategy
-                <select
-                    onChange={(e) =>
-                        setStrategy(e.target.value as PositioningStrategy)
-                    }
-                >
-                    {strategies.map((x) => (
-                        <option key={x} value={x}>
-                            {x}
-                        </option>
-                    ))}
-                </select>
+                <SelectStrategy setStrategy={setStrategy} />
+            </label>
+            <label>
+                Set positioning of tooltip ref element
+                <SelectTooltipRefElementPosition
+                    setPosition={setTooltipRefItemPositioning}
+                />
             </label>
             <hr />
             <h3>Example</h3>
@@ -144,10 +145,26 @@ export function PopperPlayground() {
                 ref={divRef}
                 id="tooltip"
                 role="tooltip"
+                style={{ position: tooltipRefItemPositioning }}
                 data-popper-arrow
             >
                 My tooltip
                 <div id="arrow" data-popper-arrow></div>
+            </div>
+            ,
+            <div
+                style={{
+                    height: '300vh',
+                    background: 'aliceblue',
+                    display: 'grid',
+                    placeItems: 'start center',
+                    border: '1px dotted black',
+                    margin: '1rem',
+                }}
+            >
+                <h1 style={{ margin: '1rem' }}>
+                    Area just to make the page scrollable
+                </h1>
             </div>
         </>
     )
