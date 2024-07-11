@@ -10,6 +10,8 @@ import VirtualizedList from './VirtualizedList'
 import InfiniteScrollList from './InfiniteScroll'
 import reportWebVitals from './reportWebVitals'
 import { PopperPlayground } from './PopperPlayground'
+import { MemoryLeakExample } from './MemoryLeak'
+import { SlowComponentTestArea } from './SlowComponent'
 
 i18next.init({
     interpolation: { escapeValue: false }, // React already does escaping
@@ -32,6 +34,14 @@ root.render(
                         element={<VirtualizedList />}
                     />
                     <Route path="/popper" element={<PopperPlayground />} />
+                    <Route
+                        path="/memory-leak"
+                        element={<MemoryLeakExample />}
+                    />
+                    <Route
+                        path="/slow-component"
+                        element={<SlowComponentTestArea />}
+                    />
                 </Routes>
             </I18nextProvider>
         </BrowserRouter>

@@ -25,6 +25,8 @@ function App() {
                 <Link to="/infinite-scroll">Go to infinite scroll</Link>
                 <Link to="/virtualized-list">Go to virtualized list</Link>
                 <Link to="/popper">Go to Popper examples</Link>
+                <Link to="/slow-component">Go to slow component example</Link>
+                <Link to="/memory-leak">Go to memory leak example</Link>
                 <p>Show custom modal centered within the viewport</p>
                 <button onClick={() => setShowModal(true)}>Show modal</button>
                 <div
