@@ -126,7 +126,9 @@ import.meta.env.VITE_APP_CONFIG_URL,
 
 # Other challenges
 
-- error that `global` was not defined, so we had to update `vite.config.js` file with `define: { global: {} }`:
+## `global` not defined
+
+Error that `global` was not defined, so we had to update `vite.config.js` file with `define: { global: {} }`:
 
   ```
   export default defineConfig(() => {
@@ -139,7 +141,7 @@ import.meta.env.VITE_APP_CONFIG_URL,
   });
   ```
 
-- SASS issues
+## SASS issues
 
 After switching fully to Vite, SASS sources started to throw errors (some deprecations and stuff).
 
@@ -147,7 +149,7 @@ Some of them were inside `bootstrap` library, so it was updated to latest 4.x.x 
 
 Also we had to correct some of our SCSS files (small things, such as deprecated division operator).
 
-- SVG issues
+## SVG issues
 
 We had exports of SVG images in `src\app\shared\design\components\icon\svg\index.ts` specified like below:
 
@@ -182,7 +184,35 @@ But they have stopped to work. In order to correct that, we had to:
   export { AddSVG }
   ```
 
-– others
+## Issues during upgrading to Vite my website written in React (about-intrinsic repository)
+
+The project was setup to use absolute paths in `import`s, which caused lot of problems. The configuration was correct for Visual Studio Code to understand imports, but Vite could not. In order to correct that:
+- followed steps from [vite-tsconfig-paths](https://www.npmjs.com/package/vite-tsconfig-paths):
+    ```
+    npm i -D vite-tsconfig-paths
+    ```
+    Then ensured the project either has `"type": "module"` set or that the Vite config is renamed to vite.config.mjs / vite.config.mts depending on whether TypeScript is used.
+
+    Then added plugin call `tsconfigPaths()` in vite.config.ts
+
+    Reference: [Absolute path not working in Vite project React TS](https://stackoverflow.com/questions/68241263/absolute-path-not-working-in-vite-project-react-ts)
+
+- for SVG images, I needed to add module augmentation (added `*.d.ts` files) for SVG imports to be typed as strings (generated URLs to them), `*.d.ts` used: 
+    ```
+    declare module "*.svg" {
+        const content: string  
+        export default content;
+    }
+    ```
+    Reference: [Unable to import svg files in typescript](https://stackoverflow.com/questions/44717164/unable-to-import-svg-files-in-typescript)
+
+    **Better solution** would be [from this post](https://stackoverflow.com/questions/77345217/react-vite-typescript-error-when-importing-an-svg-cannot-find-module-svgreac), which suggests different `*.d.ts`:
+    ```
+    /// <reference types="vite/client" />
+    /// <reference types="vite-plugin-svgr/client" />
+    ```
+
+## Others
 Upgraded bootstrap as it was throwing many erros.
 Fixed SVG imports and exports. Also needed to install library as dev dependency.
 

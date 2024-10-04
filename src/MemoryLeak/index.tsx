@@ -1,5 +1,4 @@
 import { useCallback, useState } from 'react'
-import { ExpensiveComponent } from '../SlowComponent/SlowComponent'
 import image from '../memory-leak-in-dev-tools.png'
 
 class BigObject {

@@ -32,7 +32,7 @@ const SlowComponent = ({
 const MemoizedSlowComponent = memo(SlowComponent)
 
 export const SlowComponentTestArea = () => {
-    const [date, setDate] = useState(new Date())
+    const [count, setCount] = useState(0)
 
     const myEvent = () => alert('My event just happened')
 
@@ -55,16 +55,9 @@ export const SlowComponentTestArea = () => {
                     component, causing it to rerender and we can observe how
                     children slow components behave.
                 </p>
-                <h4>
-                    Current date is{' '}
-                    {date.toLocaleString('pl-PL', {
-                        dateStyle: 'full',
-                        timeStyle: 'long',
-                        timeZone: 'Australia/Sydney',
-                    })}
-                </h4>
-                <button onClick={() => setDate(new Date())}>
-                    Update current date
+                <h4>Current count is {count}</h4>
+                <button onClick={() => setCount(count + 1)}>
+                    Update count
                 </button>
             </div>
             <div className="bordered">
