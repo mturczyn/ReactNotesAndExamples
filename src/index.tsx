@@ -12,6 +12,7 @@ import reportWebVitals from './reportWebVitals'
 import { PopperPlayground } from './PopperPlayground'
 import { MemoryLeakExample } from './MemoryLeak'
 import { SlowComponentTestArea } from './SlowComponent'
+import { UseStateExampleApp } from './CustomUseState'
 
 i18next.init({
     interpolation: { escapeValue: false }, // React already does escaping
@@ -41,6 +42,10 @@ root.render(
                     <Route
                         path="/slow-component"
                         element={<SlowComponentTestArea />}
+                    />
+                    <Route
+                        path="/custom-use-state"
+                        element={<UseStateExampleApp />}
                     />
                 </Routes>
             </I18nextProvider>
